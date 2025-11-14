@@ -6,8 +6,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the Docker image...'
-                // !! REPLACE 'sandeepk2001' with your Docker ID !!
-                sh 'docker build -t sandeepk2001/devops-task-2:latest .'
+                // Use 'bat' for Windows
+                bat 'docker build -t sandeepk2001/devops-task-2:latest .'
             }
         }
         
@@ -15,7 +15,6 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing the app...'
-                // This is a simple test. In a real project, you'd run 'npm test'.
                 echo 'Test complete.'
             }
         }
@@ -24,12 +23,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the image to Docker Hub...'
-                // Jenkins needs your Docker Hub credentials for this step
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                    
-                    // !! REPLACE 'sandeepk2001' with your Docker ID !!
-                    sh 'docker push sandeepk2001/devops-task-2:latest'
+                    // Use 'bat' and Windows %VARIABLE% syntax
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                    bat 'docker push sandeepk2001/devops-task-2:latest'
                 }
             }
         }
