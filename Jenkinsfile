@@ -10,7 +10,7 @@ pipeline {
                 bat 'docker build -t sandeepk2001/devops-task-2:latest .'
             }
         }
-        
+
         // 2. The "Test" Stage
         stage('Test') {
             steps {
@@ -18,7 +18,7 @@ pipeline {
                 echo 'Test complete.'
             }
         }
-        
+
         // 3. The "Deploy" Stage
         stage('Deploy') {
             steps {
