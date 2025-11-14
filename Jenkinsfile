@@ -6,7 +6,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the Docker image...'
-                // Use 'bat' for Windows
                 bat 'docker build -t sandeepk2001/devops-task-2:latest .'
             }
         }
@@ -25,6 +24,7 @@ pipeline {
                 echo 'Deploying the image to Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     // Use 'bat' and Windows %VARIABLE% syntax
+                    // CORRECTED: DOCKER_PASS (with an R)
                     bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
                     bat 'docker push sandeepk2001/devops-task-2:latest'
                 }
